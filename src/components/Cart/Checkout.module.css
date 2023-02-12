@@ -67,6 +67,10 @@
     display: flex;
   }
 
+  .stateDropdown{
+    
+  }
+
   ::-webkit-scrollbar {
     width: 20px;
   }

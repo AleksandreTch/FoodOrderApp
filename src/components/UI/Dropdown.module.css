@@ -23,7 +23,7 @@
 
 .dropdownMenu {
     position: absolute;
-    transform: translateY(4px);
+    transform: translate(-.27rem, 4.75rem);
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -39,4 +39,9 @@
 
 .dropdownItem:hover{
     background-color: #9fc3f870;
+}
+
+.dropdownItem .selected{
+    background: #0d6efd;
+    color: #fff;
 }

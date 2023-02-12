@@ -34,10 +34,11 @@ const Checkout = (props) => {
       </div>
 
 
-      <div className={classes.control}>
+      <div className={`${classes.control} ${classes.stateDropdown}`}>
         <label htmlFor="name">State</label>
         {/* <input type="text" id="state" /> */}
-        <Dropdown placeHolder="Select Your State" options={options}/>
+        <Dropdown placeHolder="Select Your State" 
+          options={options}/>
       </div>
       
       <div className={classes.control}>

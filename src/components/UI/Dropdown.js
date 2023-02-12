@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import classes from "./Dropdown.module.css";
 
 const Icon = () => {
@@ -14,24 +15,58 @@ const Icon = () => {
 };
 
 const Dropdown = ({placeHolder, options}) => {
+    const [showMenu, setShowMenu] = useState(false);
+    const [selectedValue, setSelectedValue] = useState(null);
+
+    useEffect(() => {
+      const dropdownHandler = () => setShowMenu(false);
+
+      window.addEventListener("click", dropdownHandler);
+      return () => {
+        window.removeEventListener("click", dropdownHandler);
+      };
+    });
+    const handeInputClick = (e) => {
+      e.stopPropagation();
+      setShowMenu(!showMenu);
+    }
+
     const getDisplay = () => {
-        return placeHolder;
+      if (selectedValue) {
+        return selectedValue.label;
+      }
+      return placeHolder;
     };
+
+    const onItemClick = (option) => {
+      setSelectedValue(option);
+    };
+    
+    const isSelected = (option) => {
+      if(!selectedValue){
+        return false;      
+      }
+
+      return selectedValue.value === option.value;
+    } 
 
   return (
     <div className={classes.dropdownContainer}>
-      <div className={classes.dropdownInput}>
+      <div onClick={handeInputClick} className={classes.dropdownInput}>
 
-        <div className={classes.dropdownMenu}>
+        {showMenu && (<div className={classes.dropdownMenu}>
             {options.map((option) => (
-                <div key={option.id} className={classes.dropdownItem}>
+                <div 
+                  onClick={() => onItemClick(option)}
+                  key={option.id} 
+                  className={`${classes.dropdownItem} ${isSelected(option) && classes.selected}}`}>
                     {option.label}
                 </div>
             ))}
-        </div>
+        </div>)}
 
         <div className={classes.dropdownSelectedInput}>
-            <h1 className={classes.placeHolder}>{getDisplay()}</h1>
+            {getDisplay()}
         </div>
             <dvi className={classes.dropdownTools}>
                 <div className={classes.dropdownTool}>
