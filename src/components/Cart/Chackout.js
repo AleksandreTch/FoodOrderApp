@@ -5,10 +5,15 @@ import Dropdown from "../UI/Dropdown";
 
 
 const Checkout = (props) => {
-
   const confirmHandler = (e) => {
     e.preventDefault();
   };
+
+  const options = [
+    {value: 'NY', label: 'New York'},
+    {value: 'NJ', label: 'New Jersey'},
+    {value: 'NM', label: 'New Mexico'},
+  ]
 
   return (
     <form className={classes.form} onSubmit={confirmHandler}>
@@ -32,7 +37,7 @@ const Checkout = (props) => {
       <div className={classes.control}>
         <label htmlFor="name">State</label>
         {/* <input type="text" id="state" /> */}
-        <Dropdown placeHolder="Select Your State"/>
+        <Dropdown placeHolder="Select Your State" options={options}/>
       </div>
       
       <div className={classes.control}>
