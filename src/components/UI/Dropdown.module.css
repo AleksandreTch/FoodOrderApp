@@ -23,7 +23,7 @@
 
 .dropdownMenu {
     position: absolute;
-    transform: translate(-.27rem, 4.75rem);
+    transform: translate(-.27rem, 6rem);
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
