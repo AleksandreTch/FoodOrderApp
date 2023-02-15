@@ -23,7 +23,7 @@
 
 .dropdownMenu {
     position: absolute;
-    transform: translate(-.27rem, 6rem);
+    transform: translate(-.29rem, 6.5rem);
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -38,10 +38,19 @@
 }
 
 .dropdownItem:hover{
-    background-color: #9fc3f870;
+    background-color: #323ee770;
+    color: white;
 }
 
 .dropdownItem .selected{
     background: #0d6efd;
     color: #fff;
+}
+
+.dropdownTool {
+    cursor: pointer;
+}
+
+.dropdownSelectedInput{
+    padding:8px;
 }

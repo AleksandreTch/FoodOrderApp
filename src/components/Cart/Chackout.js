@@ -1,14 +1,61 @@
-
+import {useRef, useState} from 'react';
 import classes from "./Checkout.module.css";
 import Dropdown from "../UI/Dropdown"; 
 
-
+const isEmpty = (value) => value.trim().length === '';
+const isFiveChars = (value) => value.trim().length === 5;
 
 const Checkout = (props) => {
+  const [formInputsValidity, setFormInputsValidity] = useState({
+    name: true,
+    street: true,
+    city: true,
+    state: true,
+    zip: true,
+  });
+
+  const nameInputRef = useRef();
+  const streetInputRef = useRef();
+  const cityInputRef = useRef();
+  const stateInputRef = useRef();
+  const zipInputRef = useRef();
+
   const confirmHandler = (e) => {
     e.preventDefault();
+
+    const enteredName = nameInputRef.current.value;
+    const enteredStreet = streetInputRef.current.value;
+    const enteredCity = cityInputRef.current.value;
+    const enteredState = stateInputRef.current.value;
+    const enteredZip = zipInputRef.current.value;
+
+    const enteredNameIsValid = !isEmpty(enteredName);
+    const enteredStreetIsValid = !isEmpty(enteredStreet);
+    const enteredCityIsValid = !isEmpty(enteredCity);
+    const enteredStateIsValid = !isEmpty(enteredState);
+    const enteredZipIsValid = isFiveChars(enteredZip);
+
+    setFormInputsValidity({
+      name: enteredNameIsValid,
+      street: enteredStreetIsValid,
+      city: enteredCityIsValid,
+      state: enteredStateIsValid,
+      zip: enteredZipIsValid
+    });
+
+    const formIsValid = 
+      enteredNameIsValid &&
+      enteredStreetIsValid &&
+      enteredCityIsValid &&
+      enteredStateIsValid &&
+      enteredZipIsValid;
+
+    if(!formIsValid){
+      return; 
+    }
   };
 
+  // All 50 States.
   const options = [
     {value: 'AL', label: 'Alabama'},
     {value: 'AK', label: 'Alaska'},
@@ -66,18 +113,19 @@ const Checkout = (props) => {
     <form className={classes.form} onSubmit={confirmHandler}>
       <div className={classes.control}>
         <label htmlFor="name">Your Name</label>
-        <input type="text" id="name" />
+        <input type="text" id="name" ref={nameInputRef}/>
+        {!formInputsValidity.name && <p>Please Enter A Valid Name</p>}
       </div>
 
 
       <div className={classes.control}>
         <label htmlFor="name">Street</label>
-        <input type="text" id="street" />
+        <input type="text" id="street" ref={streetInputRef}/>
       </div>
       
       <div className={classes.control}>
         <label htmlFor="name">City</label>
-        <input type="text" id="city" />
+        <input type="text" id="city" ref={cityInputRef}/>
       </div>
 
 
@@ -85,12 +133,12 @@ const Checkout = (props) => {
         <label htmlFor="name">State</label>
         {/* <input type="text" id="state" /> */}
         <Dropdown placeHolder="Select Your State" 
-          options={options}/>
+          options={options} ref={stateInputRef}/>
       </div>
       
       <div className={classes.control}>
         <label htmlFor="name">Zip Code</label>
-        <input type="text" id="zip" />
+        <input type="text" id="zip" ref={zipInputRef}/>
       </div>
 
       <div className={classes.actions}>
